@@ -1,4 +1,4 @@
-const baseUrl = 'http://175.6.46.236:8022/cs12345/';
+const baseUrl = 'http://175.6.46.236:8024/cs12345/';
 const baseUrl1 = 'http://192.168.43.103:8022/cs12345/';
 const baseUrl2 = 'https://www.easy-mock.com/mock/5d36b2ccc7c1542cab8bfcd8/monitor/';
 const baseUrl3 = 'http://172.29.9.21:1521/cs12345';
@@ -16,10 +16,10 @@ export const appealOnlineFinish = {
   CaseTypeStatisticsDetail: `${baseUrl}bigScreenPreviewController/queryCaseTypeOfAreas`,
   AdviceHandleDept: `${baseUrl}bigScreenPreviewController/queryAdviceHandleDept`,
   TimeHandle: `${baseUrl}bigScreenPreviewController/queryInTimeHandleFinish`,
-  noisyEvent1: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear?typeId=7866c38c55684aba80ddba526d284a9e`,
-  noisyEvent2: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear?typeId=7866c38c55684aba80ddba526d284a9e`,
-  noisyEvent3: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear1?typeId=7866c38c55684aba80ddba526d284a9e`,
-  noisyEvent4: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear1?typeId=7866c38c55684aba80ddba526d284a9e`,
+  noisyEvent1: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear`,
+  noisyEvent2: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear`,
+  noisyEvent3: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear1`,
+  noisyEvent4: `${baseUrl}bigScreenPreviewController/queryCaseSubTypeStatisticsOfYear1`,
   // CaseTypeOfAreas: `${baseUrl}bigScreenPreviewController/queryCaseTypeOfAreas?typeId=145273`,
   HistoryData1: `${baseUrl}bigScreenPreviewController/queryHistoryDataOfCaseSubType`,
   HistoryData2: `${baseUrl}bigScreenPreviewController/queryHistoryDataOfCaseSubType`,

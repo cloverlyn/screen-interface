@@ -1,63 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
-import classNames from 'classnames';
-import Charts from './charts';
-
+import ReactEcharts from 'echarts-for-react';
+import Index from './charts/index'
+import Charts from './charts/chart'
 import styles from './index.scss';
 
-function RightTop(props) {
-  const { hotEvent, hotIndex } = props;
+class RightTop extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tabs: [
+                { tabName: "本月", id: 1 },
+                { tabName: "本日", id: 2 },
+            ],
+            currentIndex: 1,
+        };
+    }
+    componentDidMount() {
 
-  const onChangeDetail = (index) => {
-    props.dispatch({
-      type: 'monitor/save',
-      payload: {
-        hotIndex: index,
-      },
-    });
-    props.dispatch({
-      type: 'monitor/handleHotEventDetail',
-    });
-  };
-  return (
-    <div className={styles.container}>
-      <div className={styles.title}>热点事件统计</div>
-      <div className={styles.mainContainer}>
-        <div className={styles.types}>
-          {
-            hotEvent.map((item) => {
-              const cx = classNames({
-                [styles.typeItem]: true,
-                [styles.select]: item.typeId === hotIndex,
-              });
-              return (
-                <div className={cx} key={item.caseName} onClick={() => onChangeDetail(item.typeId)}>
-                  <div> 
-                    {item.caseName}
-                    {item.total}个来电
-                   
-                  </div>
-                 
+    }
+    tabChoiced = (id) => {
+        // tab切换的方法
+        this.setState({
+            currentIndex: id
+        });
+    }
 
+    render() {
+        var _this = this;
+        var tabList = this.state.tabs.map(function (res, index) {
+            // 遍历标签页，如果标签的id等于tabid，那么该标签就加多一个active的className
+            var tabStyle = res.id == this.state.currentIndex ? 'subCtrl active' : 'subCtrl';
+
+            return <li key={index} onClick={this.tabChoiced.bind(_this, res.id)} className={tabStyle}>{res.tabName}</li>
+
+        }.bind(_this));
+        return (
+            <div className={styles.container}>
+                <div className={styles.title}>热点事件统计</div>
+                <div className={styles.mainContainer}>
+                    <div div className={styles.types}>
+                        <Index />
+                    </div>
+                    
+                    <Charts />
+                    {/* <div className="listWrap">
+                        {tabList}
+                        <div className="newsList">
+                            <Index />
+                            <Charts/>
+                        </div>
+                    </div> */}
                 </div>
+            </div>
 
-              );
 
-
-            })
-          }
-        </div>
-        <Charts />
-      </div>
-    </div>
-
-  );
-  
+        )
+    }
 }
 
-
-export default connect(({ monitor }) => ({
-  hotEvent: monitor.hotEvent,
-  hotIndex: monitor.hotIndex,
-
-}))(RightTop);
+export default RightTop;

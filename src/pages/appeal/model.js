@@ -27,7 +27,7 @@ export default {
   namespace: 'appeal',
   state: {
     typeId: '145273',
-    caseTypeId: '145273',
+    name: "规划房地",
     onLineEvent: [],
     // areaEventDetail: [],
     blueSkyCount: [],
@@ -70,63 +70,82 @@ export default {
     },
 
     * handleLeftTop(_, { all, call, put, select }) {
-      const { caseTypeId } = yield select(state => state.appeal);
+      const { typeId } = yield select(state => state.appeal);
       //获取左上数据
       const res = yield all({
-        caseTypeStatistics: call(fetchCaseTypeStatistics),
-        noisyEvent1: call(fetchnoisyEvent1),
-        noisyEvent2: call(fetchnoisyEvent2),
-        noisyEvent3: call(fetchnoisyEvent3),
-        noisyEvent4: call(fetchnoisyEvent4),
+        CaseTypeStatistics: call(fetchCaseTypeStatistics),
+        // noisyEvent1: call(fetchnoisyEvent1),
+        // noisyEvent2: call(fetchnoisyEvent2),
+        // noisyEvent3: call(fetchnoisyEvent3),
+        // noisyEvent4: call(fetchnoisyEvent4),
       })
 
-      const tempCaseTypeStatistics = res.caseTypeStatistics.data.map(item => {
+      const tempCaseTypeStatistics = res.CaseTypeStatistics.data.map((item) => {
         return {
           ...item,
           caseTypeName: firstDataMap[item.caseTypeName],
         };
       });
 
-      const tempnoisyEvent1 = res.noisyEvent1.data[0].map(item => {
-        return {
-          ...item,
-        };
-      });
+      const tempnoisyEvent1 = yield call(fetchnoisyEvent1, typeId);
+      const tempnoisyEvent2 = yield call(fetchnoisyEvent2, typeId);
+      const tempnoisyEvent3 = yield call(fetchnoisyEvent3, typeId);
+      const tempnoisyEvent4 = yield call(fetchnoisyEvent4, typeId);
+      const caseTypeDetail = yield call(fetchCaseTypeStatisticsDetail, typeId);
 
-      const tempnoisyEvent2 = res.noisyEvent2.data[1].map(item => {
-        return {
-          ...item,
-        };
-      });
-
-      const tempnoisyEvent3 = res.noisyEvent3.data[2].map(item => {
-        return {
-          ...item,
-        };
-      });
-
-      const tempnoisyEvent4 = res.noisyEvent5.data[3].map(item => {
-        return {
-          ...item,
-        };
-      });
-      const caseTypeDetail = yield call(fetchCaseTypeStatisticsDetail, caseTypeId);
       yield put({
         type: 'save',
         payload: {
           caseTypeStatistics: tempCaseTypeStatistics,
           caseTypeStatisticsDetail: caseTypeDetail.data,
-          noisyEvent1: tempnoisyEvent1,
-          noisyEvent2: tempnoisyEvent2,
-          noisyEvent3: tempnoisyEvent3,
-          noisyEvent4: tempnoisyEvent4,
+          noisyEvent1: tempnoisyEvent1.data[0],
+          noisyEvent2: tempnoisyEvent2.data[1],
+          noisyEvent3: tempnoisyEvent3.data[2],
+          noisyEvent4: tempnoisyEvent4.data[3],
         },
       });
     },
 
-    * handleCaseTypeStatisticsDetail({ payload: { caseTypeId } }, { call, put }) {
+    * handlenoisyEvent1({ payload: { typeId } }, { call, put }) {
+      const noisyEvent1 = yield call(fetchnoisyEvent1, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          noisyEvent1: noisyEvent1.data[0],
+        },
+      });
+    },
+    * handlenoisyEvent2({ payload: { typeId } }, { call, put }) {
+      const noisyEvent2 = yield call(fetchnoisyEvent2, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          noisyEvent2: noisyEvent2.data[1],
+        },
+      });
+    },
+    * handlenoisyEvent3({ payload: { typeId } }, { call, put }) {
+      const noisyEvent3 = yield call(fetchnoisyEvent3, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          noisyEvent3: noisyEvent3.data[2],
+        },
+      });
+    },
+    * handlenoisyEvent4({ payload: { typeId } }, { call, put }) {
+      const noisyEvent4 = yield call(fetchnoisyEvent4, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          noisyEvent4: noisyEvent4.data[3],
+        },
+      });
+    },
 
-      const res = yield call(fetchCaseTypeStatisticsDetail, caseTypeId);
+    * handleCaseTypeStatisticsDetail({ payload: { typeId } }, { call, put }) {
+
+      const res = yield call(fetchCaseTypeStatisticsDetail, typeId);
 
       yield put({
         type: 'save',
