@@ -108,8 +108,6 @@ function DistributeByType(props) {
       option={options1}
       style={{ width: '99%', height: '49%', padding: '1vh', marginLeft: '20px' }}
     />
-    
-
   );
 }
 

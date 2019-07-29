@@ -186,33 +186,33 @@ export function fetchnoisyEvent4() {
 // }
 
 //历史数据
-export function fetchHistoryData1() {
+export function fetchHistoryData1(typeId) {
   const { HistoryData1 } = appealOnlineFinish;
-  return request(HistoryData1, {
+  return request(`${HistoryData1}?typeId=${typeId}&timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchHistoryData2() {
+export function fetchHistoryData2(typeId) {
   const { HistoryData2 } = appealOnlineFinish;
-  return request(HistoryData2, {
+  return request(`${HistoryData2}?typeId=${typeId}&timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchHistoryData3() {
+export function fetchHistoryData3(typeId) {
   const { HistoryData3 } = appealOnlineFinish;
-  return request(HistoryData3, {
+  return request(`${HistoryData3}?typeId=${typeId}&timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchHistoryData4() {
+export function fetchHistoryData4(typeId) {
   const { HistoryData4 } = appealOnlineFinish;
-  return request(HistoryData4, {
+  return request(`${HistoryData4}?typeId=${typeId}&timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),

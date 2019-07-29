@@ -26,7 +26,7 @@ import { firstDataMap } from '@/utils/config';
 export default {
   namespace: 'appeal',
   state: {
-    typeId: '145056',
+    typeId: '145273',
     caseTypeId: '145273',
     onLineEvent: [],
     // areaEventDetail: [],
@@ -176,10 +176,10 @@ export default {
       const { typeId } = yield select(state => state.appeal);
       const res = yield all({
         distributeEvent: call(fetchDistributeEvent),
-        HistoryData1: call(fetchHistoryData1),
-        HistoryData2: call(fetchHistoryData2),
-        HistoryData3: call(fetchHistoryData3),
-        HistoryData4: call(fetchHistoryData4),
+        // HistoryData1: call(fetchHistoryData1),
+        // HistoryData2: call(fetchHistoryData2),
+        // HistoryData3: call(fetchHistoryData3),
+        // HistoryData4: call(fetchHistoryData4),
       })
 
       const tempDis = res.distributeEvent.data.map(item => {
@@ -188,40 +188,81 @@ export default {
           caseName: firstDataMap[item.caseName],
         };
       });
+      const HistoryData1 = yield call(fetchHistoryData1, typeId);
+      const HistoryData2 = yield call(fetchHistoryData2, typeId);
+      const HistoryData3 = yield call(fetchHistoryData3, typeId);
+      const HistoryData4 = yield call(fetchHistoryData4, typeId);
 
-      const tempHistoryData1 = res.HistoryData1.data[0].map(item => {
-        return {
-          ...item,
-        };
-      });
+      // const tempHistoryData1 = res.HistoryData1.data[0].map(item => {
+      //   return {
+      //     ...item,
+      //   };
+      // });
 
-      const tempHistoryData2 = res.HistoryData2.data[1].map(item => {
-        return {
-          ...item,
-        };
-      });
+      // const tempHistoryData2 = res.HistoryData2.data[1].map(item => {
+      //   return {
+      //     ...item,
+      //   };
+      // });
 
-      const tempHistoryData3 = res.HistoryData3.data[2].map(item => {
-        return {
-          ...item,
-        };
-      });
+      // const tempHistoryData3 = res.HistoryData3.data[2].map(item => {
+      //   return {
+      //     ...item,
+      //   };
+      // });
 
-      const tempHistoryData4 = res.HistoryData4.data[3].map(item => {
-        return {
-          ...item,
-        };
-      });
+      // const tempHistoryData4 = res.HistoryData4.data[3].map(item => {
+      //   return {
+      //     ...item,
+      //   };
+      // });
 
       yield put({
         type: 'save',
         payload: {
           distributeEvent: tempDis,
           // historyDetail: historyDetail.data,
-          HistoryData1: tempHistoryData1,
-          HistoryData2: tempHistoryData2,
-          HistoryData3: tempHistoryData3,
-          HistoryData4: tempHistoryData4,
+          HistoryData1: HistoryData1.data[0],
+          HistoryData2: HistoryData2.data[1],
+          HistoryData3: HistoryData3.data[2],
+          HistoryData4: HistoryData4.data[3],
+        },
+      });
+    },
+
+    * handleHistoryDetail1({ payload: { typeId } }, { call, put }) {
+      const HistoryDetail1 = yield call(fetchHistoryData1, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          HistoryData1: HistoryDetail1.data[0],
+        },
+      });
+    },
+    * handleHistoryDetail2({ payload: { typeId } }, { call, put }) {
+      const HistoryDetail2 = yield call(fetchHistoryData2, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          HistoryData2: HistoryDetail2.data[1],
+        },
+      });
+    },
+    * handleHistoryDetail3({ payload: { typeId } }, { call, put }) {
+      const HistoryDetail3 = yield call(fetchHistoryData3, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          HistoryData3: HistoryDetail3.data[2],
+        },
+      });
+    },
+    * handleHistoryDetail4({ payload: { typeId } }, { call, put }) {
+      const HistoryDetail4 = yield call(fetchHistoryData4, typeId);
+      yield put({
+        type: 'save',
+        payload: {
+          HistoryData4: HistoryDetail4.data[3],
         },
       });
     },

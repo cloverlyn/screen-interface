@@ -3,13 +3,11 @@ import { connect } from 'dva';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
 
-
-function DistributeEvent(props) {
-  const { distributeEvent } = props;
-  const [options, setOptions] = useState({});
-  useEffect(() => {
+class DistributeEvent extends React.Component {
+  get options() {
+    const { distributeEvent } = this.props;
     if (distributeEvent) {
-      setOptions({
+      return {
         grid: {
           top: '5%',
           left:'15%',
@@ -82,7 +80,10 @@ function DistributeEvent(props) {
             },
             barWidth: 18,
             data: distributeEvent.map(item => {
-              return item.total;
+              return {
+                value: item.total,
+                typeId: item.typeId,
+              }
             }),
             label: {
               normal: {
@@ -97,20 +98,51 @@ function DistributeEvent(props) {
             }
           },
         ],
-      });
-    } else {
-      setOptions({});
+      }
     }
-  }, [distributeEvent]);
+    else {
+      return {};
+    }
+  }
 
-  return (
-    <div>
-         <ReactEcharts
-           option={options}
-           style={{ width: '550px', height: '600px' , marginTop:'50px'}} />
-    </div>
-  );
+  chartDetails = e => {
+    this.props.dispatch({
+      type: 'appeal/handleHistoryDetail1',
+      payload: {
+        typeId: e.data.typeId,
+      },
+    });
+    this.props.dispatch({
+      type: 'appeal/handleHistoryDetail2',
+      payload: {
+        typeId: e.data.typeId,
+      },
+    });
+    this.props.dispatch({
+      type: 'appeal/handleHistoryDetail3',
+      payload: {
+        typeId: e.data.typeId,
+      },
+    });
+    this.props.dispatch({
+      type: 'appeal/handleHistoryDetail4',
+      payload: {
+        typeId: e.data.typeId,
+      },
+    });
+  };
+
+  render() {
+    return (
+      <ReactEcharts
+        option={this.options}
+        style={{ width: '550px', height: '600px' , marginTop:'50px' }}
+        onEvents={{ click: this.chartDetails }} />
+    );
+  }
 }
+
+
 
 export default connect(({ appeal }) => ({
   distributeEvent: appeal.distributeEvent,
