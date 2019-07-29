@@ -3,9 +3,10 @@ import { connect } from 'dva';
 import ReactEcharts from 'echarts-for-react';
 import imgUrl from '@/assets/dataicon.png';
 
-function DistributeByType(props) {
+function LeftTop(props) {
   const { noisyEvent1, noisyEvent2, noisyEvent3, noisyEvent4 } = props;
   const [options1, setOptions1] = useState({});
+  // const [options2, setOptions2] = useState({});
 
   useEffect(() => {
     if (noisyEvent1) {
@@ -17,34 +18,47 @@ function DistributeByType(props) {
       const tem1 = noisyEvent1.map(item => {
         return item.caseSubTypeCount;
       });
-
-      const tem2 = noisyEvent2.map(item => {
-        return item.caseSubTypeCount;
-      });
-
-      const tem3 = noisyEvent3.map(item => {
-        return item.caseSubTypeCount;
-      });
-
-      const tem4 = noisyEvent4.map(item => {
-        return item.caseSubTypeCount;
-      });
-
       const temp1 = noisyEvent1.map(item => {
         return item.caseSubTypeName;
       });
 
-      const temp2 = noisyEvent2.map(item => {
-        return item.caseSubTypeName;
-      });
+      var tem2 = [];
+      var tem3 = [];
+      var tem4 = [];
+      var temp2 = [];
+      var temp3 = [];
+      var temp4 = [];
 
-      const temp3 = noisyEvent3.map(item => {
-        return item.caseSubTypeName;
-      });
+      if (noisyEvent2) {
+        tem2 = noisyEvent2.map(item => {
+          return item.caseSubTypeCount;
+        });
 
-      const temp4 = noisyEvent4.map(item => {
-        return item.caseSubTypeName;
-      });
+        temp2 = noisyEvent2.map(item => {
+          return item.caseSubTypeName;
+        });
+      }
+
+      if (noisyEvent3) {
+        tem3 = noisyEvent3.map(item => {
+          return item.caseSubTypeCount;
+        });
+
+        temp3 = noisyEvent3.map(item => {
+          return item.caseSubTypeName;
+        });
+      }
+
+      if (noisyEvent4) {
+        tem4 = noisyEvent4.map(item => {
+          return item.caseSubTypeCount;
+        });
+
+        temp4 = noisyEvent4.map(item => {
+          return item.caseSubTypeName;
+        });
+      }
+
 
       //var legendData = ['其他', '骚扰电话', '催办工单', '移车'];
       var legendData = [];
@@ -104,7 +118,7 @@ function DistributeByType(props) {
   }, [noisyEvent1, noisyEvent2, noisyEvent3, noisyEvent4]);
 
   return (
-      <ReactEcharts
+    <ReactEcharts
       option={options1}
       style={{ width: '99%', height: '49%', padding: '1vh', marginLeft: '20px' }}
     />
@@ -116,4 +130,6 @@ export default connect(({ appeal }) => ({
   noisyEvent2: appeal.noisyEvent2,
   noisyEvent3: appeal.noisyEvent3,
   noisyEvent4: appeal.noisyEvent4,
-}))(DistributeByType);
+  // caseTypeStatisticsDetail: appeal.caseTypeStatisticsDetail,
+  // name: appeal.caseTypeStatisticsDetail.data.caseTypeName,
+}))(LeftTop);

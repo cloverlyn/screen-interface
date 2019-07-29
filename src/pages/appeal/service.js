@@ -112,8 +112,8 @@ export function fetchCityEventByType() {
 }
 //各案件大类数据统计
 export function fetchCaseTypeStatistics() {
-  const { caseTypeStatistics } = appealOnlineFinish;
-  return request(caseTypeStatistics, {
+  const { CaseTypeStatistics } = appealOnlineFinish;
+  return request(CaseTypeStatistics, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
@@ -121,9 +121,9 @@ export function fetchCaseTypeStatistics() {
 }
 
 //各案件大类数据统计详情
-export function fetchCaseTypeStatisticsDetail(caseTypeId) {
+export function fetchCaseTypeStatisticsDetail(typeId, name) {
   const { CaseTypeStatisticsDetail } = appealOnlineFinish;
-  return request(`${CaseTypeStatisticsDetail}?typeId=${caseTypeId}`, {
+  return request(`${CaseTypeStatisticsDetail}?typeId=${typeId}`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
@@ -142,33 +142,33 @@ export function fetchTimeHandle() {
 }
 
 //噪音案件
-export function fetchnoisyEvent1() {
+export function fetchnoisyEvent1(typeId) {
   const { noisyEvent1 } = appealOnlineFinish;
-  return request(noisyEvent1, {
+  return request(`${noisyEvent1}?typeId=${typeId}`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchnoisyEvent2() {
+export function fetchnoisyEvent2(typeId) {
   const { noisyEvent2 } = appealOnlineFinish;
-  return request(noisyEvent2, {
+  return request(`${noisyEvent2}?typeId=${typeId}`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchnoisyEvent3() {
+export function fetchnoisyEvent3(typeId) {
   const { noisyEvent3 } = appealOnlineFinish;
-  return request(noisyEvent3, {
+  return request(`${noisyEvent3}?typeId=${typeId}`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   });
 }
-export function fetchnoisyEvent4() {
+export function fetchnoisyEvent4(typeId) {
   const { noisyEvent4 } = appealOnlineFinish;
-  return request(noisyEvent4, {
+  return request(`${noisyEvent4}?typeId=${typeId}`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
