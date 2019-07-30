@@ -19,9 +19,18 @@ export function fetchHotEvent() {
  * @param typeId
  * @returns {Promise<*>}
  */
-export function fetHotEventDetail(typeId, month) {
+export function fetHotEventDetail(typeId) {
   const { HotEventDetail } = montiorUrl;
-  return request(`${HotEventDetail}?typeId=${typeId}&timeType=${month}`, {
+  return request(`${HotEventDetail}?typeId=${typeId}&timeType=1`, {
+    header: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  });
+}
+
+export function fetHotEventDetail1(typeId) {
+  const { HotEventDetail } = montiorUrl;
+  return request(`${HotEventDetail}?typeId=${typeId}&timeType=0`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),

@@ -1,6 +1,7 @@
 import {
   fetchHotEvent,
   fetHotEventDetail,
+  fetHotEventDetail1,
   fetchInTimeSum,
   fetchHistoryVdn,
   fetchOnLineFinish,
@@ -22,8 +23,9 @@ export default {
   state: {
     hotEvent: [],
     hotIndex: '145056',
-    timeType : 1,
+    month : 1,
     hotEventDetail: [],
+    hotEventDetail1: [],
     phoneState: {
       'IDX_01_04_006': [],
       'IDX_01_04_007': [],
@@ -122,13 +124,25 @@ export default {
       });
     },
     * handleHotEventDetail(_, { select, call, put }) {
-      const { hotIndex, month } = yield select(state => state.monitor);
-      const res = yield call(fetHotEventDetail, hotIndex, month);
+      const { hotIndex } = yield select(state => state.monitor);
+      const res = yield call(fetHotEventDetail, hotIndex);
 
       yield put({
         type: 'save',
         payload: {
           hotEventDetail: res.data,
+        },
+      });
+    },
+
+    * handleHotEventDetail1(_, { select, call, put }) {
+      const { hotIndex } = yield select(state => state.monitor);
+      const res = yield call(fetHotEventDetail1, hotIndex);
+
+      yield put({
+        type: 'save',
+        payload: {
+          hotEventDetail1: res.data,
         },
       });
     },
