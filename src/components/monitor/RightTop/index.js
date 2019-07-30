@@ -8,41 +8,31 @@ import styles from './index.scss';
 class RightTop extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            tabs: [
-                { tabName: "本月", id: 1 },
-                { tabName: "本日", id: 2 },
-            ],
-            currentIndex: 1,
-        };
-    }
-    componentDidMount() {
+        this.state = { isToggleOn: 1 };
 
+        // 为了在回调中使用 `this`，这个绑定是必不可少的
+        this.handleClick = this.handleClick.bind(this);
     }
-    tabChoiced = (id) => {
-        // tab切换的方法
-        this.setState({
-            currentIndex: id
-        });
+
+    handleClick() {
+        this.setState(state => ({
+            isToggleOn: !state.isToggleOn
+        }));
     }
 
     render() {
-        var _this = this;
-        var tabList = this.state.tabs.map(function (res, index) {
-            // 遍历标签页，如果标签的id等于tabid，那么该标签就加多一个active的className
-            var tabStyle = res.id == this.state.currentIndex ? 'subCtrl active' : 'subCtrl';
-
-            return <li key={index} onClick={this.tabChoiced.bind(_this, res.id)} className={tabStyle}>{res.tabName}</li>
-
-        }.bind(_this));
         return (
             <div className={styles.container}>
-                <div className={styles.title}>热点事件统计</div>
+                <div className={styles.title}>热点事件统计
+                <button onClick={this.handleClick} style={{ width: '10%', height: '10%', padding: '1vh' }}>
+                    {this.state.isToggleOn ? '月' : '日'}
+                </button>
+                </div>
                 <div className={styles.mainContainer}>
                     <div div className={styles.types}>
-                        <Index />
+                        <Index val = {this.state.isToggleOn}/>
                     </div>
-                    
+
                     <Charts />
                     {/* <div className="listWrap">
                         {tabList}
@@ -53,9 +43,7 @@ class RightTop extends React.Component {
                     </div> */}
                 </div>
             </div>
-
-
-        )
+        );
     }
 }
 

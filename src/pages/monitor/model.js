@@ -22,6 +22,7 @@ export default {
   state: {
     hotEvent: [],
     hotIndex: '145056',
+    timeType : 1,
     hotEventDetail: [],
     phoneState: {
       'IDX_01_04_006': [],
@@ -121,8 +122,8 @@ export default {
       });
     },
     * handleHotEventDetail(_, { select, call, put }) {
-      const { hotIndex } = yield select(state => state.monitor);
-      const res = yield call(fetHotEventDetail, hotIndex);
+      const { hotIndex, month } = yield select(state => state.monitor);
+      const res = yield call(fetHotEventDetail, hotIndex, month);
 
       yield put({
         type: 'save',

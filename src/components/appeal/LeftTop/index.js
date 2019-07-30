@@ -70,6 +70,15 @@ class LeftTop extends React.Component {
     
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { name: "规划房地" };
+
+    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    this.chartDetails = this.chartDetails.bind(this);
+}
+
+
  
   chartDetails = e => {
     this.props.dispatch({
@@ -102,6 +111,9 @@ class LeftTop extends React.Component {
         typeId: e.data.typeId,
       },
     });
+    this.setState(state => ({
+      name: e.data.name
+  }));
   };
 
   render() {
@@ -123,11 +135,11 @@ class LeftTop extends React.Component {
           <div style={{ opacity: 0.9, width: '650px', height: '800px' }}>
 
             <img src={imgUrl} />
-            <strong style={{ color: "#00eaff", fontSize: '1.6vh', marginLeft: '20px' }} >话务区域案件类概况</strong>
+            <strong style={{ color: "#00eaff", fontSize: '1.6vh', marginLeft: '20px' }}>{this.state.name}案件类概况</strong>
             <Charts/>
 
             <img src={imgUrl} />
-            <strong style={{ color: "#00eaff", fontSize: '1.6vh', marginLeft: '20px' }}>话务区域类9区分布图</strong>
+            <strong style={{ color: "#00eaff", fontSize: '1.6vh', marginLeft: '20px' }}>{this.state.name}类9区分布图</strong>
             <Detail/>
           </div>
 
