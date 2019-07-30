@@ -33,8 +33,8 @@ export const appealOnlineFinish = {
 };
 
 export const montiorUrl = {
-  HotEvent: `${baseUrl1}bigScreenPreviewController/queryHotEventStatis`,
-  HotEventDetail: `${baseUrl1}bigScreenPreviewController/queryHotEventDetailStatis`,
+  HotEvent: `${baseUrl}bigScreenPreviewController/queryHotEventStatis`,
+  HotEventDetail: `${baseUrl}bigScreenPreviewController/queryHotEventDetailStatis`,
   InTimeSum: `${baseUrl}cmsDataController/getInTimeSum`,
   HistoryVdn: `${baseUrl}cmsDataController/getHistoryVdn`,
   CaseTypeCount: `${baseUrl}bigScreenPreviewController/queryCaseTypeCount`,
