@@ -1,5 +1,5 @@
 const baseUrl = 'http://175.6.46.236:8024/cs12345/';
-const baseUrl1 = 'http://192.168.43.103:8022/cs12345/';
+const baseUrl1 = 'http://192.168.43.103:8024/cs12345/';
 const baseUrl2 = 'https://www.easy-mock.com/mock/5d36b2ccc7c1542cab8bfcd8/monitor/';
 const baseUrl3 = 'http://172.29.9.21:1521/cs12345';
 
@@ -33,8 +33,8 @@ export const appealOnlineFinish = {
 };
 
 export const montiorUrl = {
-  HotEvent: `${baseUrl}bigScreenPreviewController/queryHotEventStatis`,
-  HotEventDetail: `${baseUrl}bigScreenPreviewController/queryHotEventDetailStatis`,
+  HotEvent: `${baseUrl1}bigScreenPreviewController/queryHotEventStatis`,
+  HotEventDetail: `${baseUrl1}bigScreenPreviewController/queryHotEventDetailStatis`,
   InTimeSum: `${baseUrl}cmsDataController/getInTimeSum`,
   HistoryVdn: `${baseUrl}cmsDataController/getHistoryVdn`,
   CaseTypeCount: `${baseUrl}bigScreenPreviewController/queryCaseTypeCount`,

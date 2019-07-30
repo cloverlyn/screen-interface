@@ -2,47 +2,46 @@ import React, { useState, useEffect } from 'react';
 import echarts from 'echarts/lib/echarts';
 import ReactEcharts from 'echarts-for-react';
 import { connect } from 'dva';
-import  point1  from '@/assets/point1.png'
-import  point2  from '@/assets/point2.png'
-import  point3  from '@/assets/point3.png'
-import  point4  from '@/assets/point4.png'
+import point1 from '@/assets/point1.png'
+import point2 from '@/assets/point2.png'
+import point3 from '@/assets/point3.png'
+import point4 from '@/assets/point4.png'
 
 import * as map from '@/utils/map.json';
 
-let geos = {};
-map.default.features.forEach(item => {
-  const { name, center } = item.properties;
-  geos[name] = center;
-});
+class Map extends React.Component {
 
-function Map(props) {
-  const { inTimeHandle } = props;
-  echarts.registerMap('changsha', map.default);
-  const convertData = function(data) {
-    let res = [];
-    for (let i = 0; i < data.length; i++) {
-      let geoCoord = geos[data[i].name];
-      if (geoCoord) {
-        res.push({
-          name: data[i].name,
-          value: geoCoord.concat(data[i].value),
-        });
+  get options() {
+    const { inTimeHandle } = this.props;
+    let geos = {};
+    map.default.features.forEach(item => {
+      const { name, center } = item.properties;
+      geos[name] = center;
+    });
+    echarts.registerMap('changsha', map.default);
+    const convertData = function (data) {
+      let res = [];
+      for (let i = 0; i < data.length; i++) {
+        let geoCoord = geos[data[i].name];
+        if (geoCoord) {
+          res.push({
+            name: data[i].name,
+            value: geoCoord.concat(data[i].value),
+          });
+        }
       }
-    }
-    return res;
-  };
-  const findMax = (data) => {
-    let temp = [];
-    for (let i = 0; i < data.length; i++) {
-      temp.push(data[i].value);
-    }
+      return res;
+    };
+    const findMax = (data) => {
+      let temp = [];
+      for (let i = 0; i < data.length; i++) {
+        temp.push(data[i].value);
+      }
 
-    return Math.max(...temp);
-  };
-  const [options, setOptions] = useState({});
-  useEffect(() => {
+      return Math.max(...temp);
+    };
     if (inTimeHandle.length !== 0) {
-      setOptions({
+      return {
         graphic: [
           //宁乡市
           {
@@ -912,7 +911,7 @@ function Map(props) {
         ],
         tooltip: {
           trigger: 'item',
-          formatter: function(params) {
+          formatter: function (params) {
             return params.name + ' : ' + params.value[2];
           },
         },
@@ -948,8 +947,8 @@ function Map(props) {
         xAxis: {
           type: 'category',
           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'],
-          show:false,
-          axisLine:{
+          show: false,
+          axisLine: {
             lineStyle: {
               color: "#00c7ff",
               width: 1,
@@ -959,8 +958,8 @@ function Map(props) {
         },
         yAxis: {
           type: 'value',
-          show:false,
-          axisLine:{
+          show: false,
+          axisLine: {
             lineStyle: {
               color: "#00c7ff",
               width: 1,
@@ -972,116 +971,122 @@ function Map(props) {
         series: [
           //宁乡区
           {
-            data: [[4,200],[2,350],'', 600],
+            data: [[4, 200], [2, 350], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //望城区
           {
-            data: [[5,550],[8,350],'', 600],
+            data: [[5, 550], [8, 350], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //开福区
           {
-            data: [[9,330],[10,580],'', 600],
+            data: [[9, 330], [10, 580], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //芙蓉区
           {
-            data: [[10,260],[14,600],'', 600],
+            data: [[10, 260], [14, 600], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //长沙县
           {
-            data: [[11,260],[18,550],'', 600],
+            data: [[11, 260], [18, 550], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //浏阳市
           {
-            data: [[16,300],[20,150],'', 600],
+            data: [[16, 300], [20, 150], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //雨花区
           {
-            data: [[10,150],[18,30],'', 600],
+            data: [[10, 150], [18, 30], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //天心区
           {
-            data: [[10,0],[9,150],'', 600],
+            data: [[10, 0], [9, 150], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           },
           //岳麓区
           {
-            data: [[5,0],[8,200],'', 600],
+            data: [[5, 0], [8, 200], '', 600],
             type: 'line',
-            smooth:true,
-            lineStyle:{
-              color:'#00c7ff'
+            smooth: true,
+            lineStyle: {
+              color: '#00c7ff'
             }
           }
 
 
         ]
-
-      });
-    } else {
-      setOptions({});
+      }
     }
-  }, [inTimeHandle]);
-  return (
-    <div style={{ marginBottom : '200px' }}>
-      <ol>
-        <img src={point1}/><strong style={{color:'#00eaff'}}>在线办结工单数  </strong>
-        <img src={point2}/><strong style={{color:'#00eaff'}}>在线办结率  </strong>
-      </ol>
-      <ol>
-        <img src={point3}/><strong style={{color:'#00eaff',paddingRight:'30px'}}>转办工单数  </strong>
-        <img src={point4}/><strong style={{color:'#00eaff'}}>转办工单办结率</strong>
-      </ol>
+    else {
+      return {};
+    }
+  }
 
-      <ReactEcharts
-        option={options}
-        style={{ width: '99%', height: '600px'  }}
-      />
 
-      <strong style={{float:'right' , marginRight:'50px' , marginTop:'30px'}}>全市案件大类
-        <p style={{float:'right', color:'#00eaff' , marginBottom:'30px'}}>(单位：个)</p>
-      </strong>
 
-    </div>
-  );
+  render() {
+
+    return (
+      <div style={{ marginBottom: '200px' }}>
+        <ol>
+          <img src={point1} /><strong style={{ color: '#00eaff' }}>在线办结工单数  </strong>
+          <img src={point2} /><strong style={{ color: '#00eaff' }}>在线办结率  </strong>
+        </ol>
+        <ol>
+          <img src={point3} /><strong style={{ color: '#00eaff', paddingRight: '30px' }}>转办工单数  </strong>
+          <img src={point4} /><strong style={{ color: '#00eaff' }}>转办工单办结率</strong>
+        </ol>
+
+        <ReactEcharts
+          option={this.options}
+          style={{ width: '99%', height: '600px' }}
+        />
+
+        <strong style={{ float: 'right', marginRight: '50px', marginTop: '30px' }}>全市案件大类
+        <p style={{ float: 'right', color: '#00eaff', marginBottom: '30px' }}>(单位：个)</p>
+        </strong>
+
+      </div>
+    )
+  }
 }
 
 export default connect(({ appeal }) => ({

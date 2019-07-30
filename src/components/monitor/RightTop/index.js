@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import ReactEcharts from 'echarts-for-react';
 import Index from './charts/index'
-import Charts from './charts/chart'
+import Index1 from './charts/index1'
 import styles from './index.scss';
 
 class RightTop extends React.Component {
@@ -24,17 +24,12 @@ class RightTop extends React.Component {
         return (
             <div className={styles.container}>
                 <div className={styles.title}>热点事件统计
-                <button onClick={this.handleClick} style={{ width: '5%', height: '60%', padding: '1vh' }}>
+                    <button onClick={this.handleClick} style={{ width: '5%', height: '60%', padding: '1vh', background:'#14326b',color: "#00eaff" , fontSize: '1.6vh' }}>
                         {this.state.isToggleOn ? '月' : '日'}
                     </button>
                 </div>
-                <div className={styles.mainContainer}>
-                    <div div className={styles.types}>
-                        <Index val = {this.state.isToggleOn} />
-                    </div>
-
-                    <Charts />
-                </div>
+         
+                {this.state.isToggleOn ? <Index />: <Index1 />}
             </div>
         );
     }

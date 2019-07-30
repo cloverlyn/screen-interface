@@ -1,5 +1,6 @@
 import {
   fetchHotEvent,
+  fetchHotEvent1,
   fetHotEventDetail,
   fetHotEventDetail1,
   fetchInTimeSum,
@@ -24,8 +25,10 @@ export default {
     hotEvent: [],
     hotIndex: '145056',
     month : 1,
+    hotEvent1: [],
     hotEventDetail: [],
     hotEventDetail1: [],
+    // hotEventDetail1: [],
     phoneState: {
       'IDX_01_04_006': [],
       'IDX_01_04_007': [],
@@ -89,6 +92,7 @@ export default {
     * fetch(_, { all, put }) {
       yield all([
         put({ type: 'handleHotEvent' }),
+        put({ type: 'handleHotEvent1' }),
         put({ type: 'handleInTimeSum' }),
         put({ type: 'handleOnLineFinish'}),
         put({ type: 'handleCaseTypeCount' }),
@@ -131,6 +135,27 @@ export default {
         type: 'save',
         payload: {
           hotEventDetail: res.data,
+        },
+      });
+    },
+
+    * handleHotEvent1(_, { all, call, put }) {
+      const res = yield all({
+        hotEvent1: call(fetchHotEvent1),
+      });
+      const tempHotEvent1 = res.hotEvent1.data.map(item => {
+        return {
+          ...item,
+          caseName: firstDataMap[item.caseName],
+        };
+      });
+      yield put({
+        type: 'handleHotEventDetail1',
+      });
+      yield put({
+        type: 'save',
+        payload: {
+          hotEvent1: tempHotEvent1,
         },
       });
     },

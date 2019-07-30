@@ -7,7 +7,16 @@ import { montiorUrl } from '@/utils/url';
  */
 export function fetchHotEvent() {
   const { HotEvent } = montiorUrl;
-  return request(HotEvent, {
+  return request(`${HotEvent}?timeType=0`, {
+    header: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  });
+}
+
+export function fetchHotEvent1() {
+  const { HotEvent } = montiorUrl;
+  return request(`${HotEvent}?timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
@@ -21,7 +30,7 @@ export function fetchHotEvent() {
  */
 export function fetHotEventDetail(typeId) {
   const { HotEventDetail } = montiorUrl;
-  return request(`${HotEventDetail}?typeId=${typeId}&timeType=1`, {
+  return request(`${HotEventDetail}?typeId=${typeId}&timeType=0`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
@@ -30,7 +39,7 @@ export function fetHotEventDetail(typeId) {
 
 export function fetHotEventDetail1(typeId) {
   const { HotEventDetail } = montiorUrl;
-  return request(`${HotEventDetail}?typeId=${typeId}&timeType=0`, {
+  return request(`${HotEventDetail}?typeId=${typeId}&timeType=1`, {
     header: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
