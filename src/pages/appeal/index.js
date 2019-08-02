@@ -10,7 +10,6 @@ import styles from './index.scss';
 
 class Appeal extends React.Component {
   times = null;
-
   componentDidMount() {
     this.props.dispatch({
       type: 'appeal/fetch',
@@ -25,6 +24,12 @@ class Appeal extends React.Component {
       this.props.dispatch({
         type: 'monitor/fetch',
       });
+      this.props.dispatch({
+        type: 'appeal/save',
+        payload: {
+          name: '规划房地',
+        },
+      });
     }, 10000);
   }
 
@@ -35,12 +40,11 @@ class Appeal extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <LeftTop/>
-        <Area/>
-        <RightTop/>
-        <Rightb/>
-        <Leftb/>
-        {/*<iframe src="http://175.6.46.236:8023/test1/2.html" frameBorder="0" className={styles.ifStyle}/>*/}
+        <LeftTop />
+        <Area />
+        <RightTop />
+        <Rightb />
+        <Leftb />
       </div>
     );
   }

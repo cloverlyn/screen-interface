@@ -1,11 +1,9 @@
 import {
-  // fetchOnLineEvent,
   fetchBlueSkyCount,
   fetchBusinessCount,
   fetchDistributeEvent,
   fetchInTimeHandle,
   fetchMonitorCount,
-  // fetchAreaEventDetail,
   fetchCityEventByType,
   fetchCaseTypeStatistics,
   fetchCaseTypeStatisticsDetail,
@@ -15,7 +13,6 @@ import {
   fetchnoisyEvent2,
   fetchnoisyEvent3,
   fetchnoisyEvent4,
-  // fetchCaseTypeOfAreas,
   fetchHistoryData1,
   fetchHistoryData2,
   fetchHistoryData3,
@@ -27,9 +24,8 @@ export default {
   namespace: 'appeal',
   state: {
     typeId: '145273',
-    name: "规划房地",
+    name: '规划房地',
     onLineEvent: [],
-    // areaEventDetail: [],
     blueSkyCount: [],
     businessCount: [],
     adviceHandleDept: [],
@@ -44,7 +40,6 @@ export default {
     noisyEvent2: [],
     noisyEvent3: [],
     noisyEvent4: [],
-    // CaseTypeOfAreas: [],
     HistoryData1: [],
     HistoryData2: [],
     HistoryData3: [],
@@ -59,7 +54,7 @@ export default {
     },
   },
   effects: {
-    * fetch(_, { all, put }) {
+    *fetch(_, { all, put }) {
       yield all([
         put({ type: 'handleLeftTop' }),
         put({ type: 'handleLeftBottom' }),
@@ -69,18 +64,14 @@ export default {
       ]);
     },
 
-    * handleLeftTop(_, { all, call, put, select }) {
+    *handleLeftTop(_, { all, call, put, select }) {
       const { typeId } = yield select(state => state.appeal);
       //获取左上数据
       const res = yield all({
         CaseTypeStatistics: call(fetchCaseTypeStatistics),
-        // noisyEvent1: call(fetchnoisyEvent1),
-        // noisyEvent2: call(fetchnoisyEvent2),
-        // noisyEvent3: call(fetchnoisyEvent3),
-        // noisyEvent4: call(fetchnoisyEvent4),
-      })
+      });
 
-      const tempCaseTypeStatistics = res.CaseTypeStatistics.data.map((item) => {
+      const tempCaseTypeStatistics = res.CaseTypeStatistics.data.map(item => {
         return {
           ...item,
           caseTypeName: firstDataMap[item.caseTypeName],
@@ -106,7 +97,12 @@ export default {
       });
     },
 
-    * handlenoisyEvent1({ payload: { typeId } }, { call, put }) {
+    *handlenoisyEvent1(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const noisyEvent1 = yield call(fetchnoisyEvent1, typeId);
       yield put({
         type: 'save',
@@ -115,7 +111,12 @@ export default {
         },
       });
     },
-    * handlenoisyEvent2({ payload: { typeId } }, { call, put }) {
+    *handlenoisyEvent2(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const noisyEvent2 = yield call(fetchnoisyEvent2, typeId);
       yield put({
         type: 'save',
@@ -124,7 +125,12 @@ export default {
         },
       });
     },
-    * handlenoisyEvent3({ payload: { typeId } }, { call, put }) {
+    *handlenoisyEvent3(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const noisyEvent3 = yield call(fetchnoisyEvent3, typeId);
       yield put({
         type: 'save',
@@ -133,7 +139,12 @@ export default {
         },
       });
     },
-    * handlenoisyEvent4({ payload: { typeId } }, { call, put }) {
+    *handlenoisyEvent4(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const noisyEvent4 = yield call(fetchnoisyEvent4, typeId);
       yield put({
         type: 'save',
@@ -143,8 +154,12 @@ export default {
       });
     },
 
-    * handleCaseTypeStatisticsDetail({ payload: { typeId } }, { call, put }) {
-
+    *handleCaseTypeStatisticsDetail(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const res = yield call(fetchCaseTypeStatisticsDetail, typeId);
 
       yield put({
@@ -155,27 +170,26 @@ export default {
       });
     },
 
-
-    * handleLeftBottom(_, { all, call, put, select }) {
+    *handleLeftBottom(_, { all, call, put }) {
       const res = yield all({
         BlueSkyCount: call(fetchBlueSkyCount),
         BusinessCount: call(fetchBusinessCount),
         AdviceHandleDept: call(fetchAdviceHandleDept),
-      })
+      });
 
-      const tempBlue = res.BlueSkyCount.data.map((item) => {
+      const tempBlue = res.BlueSkyCount.data.map(item => {
         return {
           ...item,
           name: firstDataMap[item.name],
         };
       });
-      const tempBusiness = res.BusinessCount.data.map((item) => {
+      const tempBusiness = res.BusinessCount.data.map(item => {
         return {
           ...item,
           name: firstDataMap[item.name],
         };
       });
-      const tempAdviceHandle = res.AdviceHandleDept.data.map((item) => {
+      const tempAdviceHandle = res.AdviceHandleDept.data.map(item => {
         return {
           ...item,
           name: firstDataMap[item.deptName],
@@ -187,19 +201,15 @@ export default {
           blueSkyCount: tempBlue,
           businessCount: tempBusiness,
           adviceHandleDept: tempAdviceHandle,
-        }
-      })
+        },
+      });
     },
 
-    * handleRightTop(_, { all, call, put, select }) {
+    *handleRightTop(_, { all, call, put, select }) {
       const { typeId } = yield select(state => state.appeal);
       const res = yield all({
         distributeEvent: call(fetchDistributeEvent),
-        // HistoryData1: call(fetchHistoryData1),
-        // HistoryData2: call(fetchHistoryData2),
-        // HistoryData3: call(fetchHistoryData3),
-        // HistoryData4: call(fetchHistoryData4),
-      })
+      });
 
       const tempDis = res.distributeEvent.data.map(item => {
         return {
@@ -212,35 +222,10 @@ export default {
       const HistoryData3 = yield call(fetchHistoryData3, typeId);
       const HistoryData4 = yield call(fetchHistoryData4, typeId);
 
-      // const tempHistoryData1 = res.HistoryData1.data[0].map(item => {
-      //   return {
-      //     ...item,
-      //   };
-      // });
-
-      // const tempHistoryData2 = res.HistoryData2.data[1].map(item => {
-      //   return {
-      //     ...item,
-      //   };
-      // });
-
-      // const tempHistoryData3 = res.HistoryData3.data[2].map(item => {
-      //   return {
-      //     ...item,
-      //   };
-      // });
-
-      // const tempHistoryData4 = res.HistoryData4.data[3].map(item => {
-      //   return {
-      //     ...item,
-      //   };
-      // });
-
       yield put({
         type: 'save',
         payload: {
           distributeEvent: tempDis,
-          // historyDetail: historyDetail.data,
           HistoryData1: HistoryData1.data[0],
           HistoryData2: HistoryData2.data[1],
           HistoryData3: HistoryData3.data[2],
@@ -249,7 +234,12 @@ export default {
       });
     },
 
-    * handleHistoryDetail1({ payload: { typeId } }, { call, put }) {
+    *handleHistoryDetail1(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const HistoryDetail1 = yield call(fetchHistoryData1, typeId);
       yield put({
         type: 'save',
@@ -258,7 +248,12 @@ export default {
         },
       });
     },
-    * handleHistoryDetail2({ payload: { typeId } }, { call, put }) {
+    *handleHistoryDetail2(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const HistoryDetail2 = yield call(fetchHistoryData2, typeId);
       yield put({
         type: 'save',
@@ -267,7 +262,12 @@ export default {
         },
       });
     },
-    * handleHistoryDetail3({ payload: { typeId } }, { call, put }) {
+    *handleHistoryDetail3(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const HistoryDetail3 = yield call(fetchHistoryData3, typeId);
       yield put({
         type: 'save',
@@ -276,7 +276,12 @@ export default {
         },
       });
     },
-    * handleHistoryDetail4({ payload: { typeId } }, { call, put }) {
+    *handleHistoryDetail4(
+      {
+        payload: { typeId },
+      },
+      { call, put },
+    ) {
       const HistoryDetail4 = yield call(fetchHistoryData4, typeId);
       yield put({
         type: 'save',
@@ -286,11 +291,11 @@ export default {
       });
     },
 
-    * handleRightBottom(_, { all, call, put }) {
+    *handleRightBottom(_, { all, call, put }) {
       const res = yield all({
         TimeHandle: call(fetchTimeHandle),
         monitorCount: call(fetchMonitorCount),
-      })
+      });
 
       const tempTimeHandle = res.TimeHandle.data.map(item => {
         return {
@@ -308,12 +313,10 @@ export default {
       });
     },
 
-    * handleArea(_, { all, call, put, select }) {
-      //const cityEventByType = yield call(fetchCityEventByType);
+    *handleArea(_, { all, call, put }) {
       const res = yield all({
         cityEventByType: call(fetchCityEventByType),
         inTimeHandle: call(fetchInTimeHandle),
-
       });
       const tempCity = res.cityEventByType.data.map(item => {
         return {
@@ -328,10 +331,6 @@ export default {
           inTimeHandle: res.inTimeHandle.data,
         },
       });
-
-
     },
-
-
   },
 };
